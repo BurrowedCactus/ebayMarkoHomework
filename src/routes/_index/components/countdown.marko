@@ -1,0 +1,98 @@
+class {
+  onCreate() {
+    this.state = {
+      timeRemaining: {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      },
+    };
+  }
+
+  onMount() {
+    this.targetDate = new Date('2024-07-31T23:59:59');
+    this.updateCountdown();
+    this.timer = setInterval(() => this.updateCountdown(), 1000);
+  }
+
+  formatTime(time) {
+    return time < 10 ? `0${time}` : time;
+  }
+
+  updateCountdown() {
+    const now = new Date();
+    const timeDifference = this.targetDate - now;
+
+    if (timeDifference <= 0) {
+      clearInterval(this.timer);
+      this.setState('timeRemaining', {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      });
+    } else {
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = this.formatTime(
+        Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      );
+      const minutes = this.formatTime(
+        Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60))
+      );
+      const seconds = this.formatTime(
+        Math.floor((timeDifference % (1000 * 60)) / 1000)
+      );
+      this.setState('timeRemaining', { days, hours, minutes, seconds });
+    }
+  }
+
+  onDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
+}
+
+<div.countdown>
+  <img.logo src='src/routes/_index/logo.svg' alt='logo'>
+  <div.countdown-content>
+    <p>
+      ${state.timeRemaining.days}:${state.timeRemaining.hours}:${state
+        .timeRemaining.minutes}:${state.timeRemaining.seconds}
+    </p>
+    <h1.container-heading>Allstate Extended Vehicle Care</h1>
+    <h4.slogan>
+      Protection that
+      <span.blue>extends beyond your warranty</span>
+    </h4>
+  </div>
+</div>
+
+<style>
+  .countdown {
+    width: 100%;
+    background: darkslateblue;
+    display: flex;
+    padding: 1em;
+  }
+  .logo {
+    width: 5em;
+    padding: 0 1em 10em 3em;
+    display: inline-block;
+  }
+  .countdown-content {
+    display: inline-block;
+  }
+  .containter-heading {
+    font-size: 1em;
+    color: white;
+  }
+  .slogan {
+    margin-top: 0;
+    font-size: 4em;
+  }
+  .blue {
+    color: skyblue;
+  }
+</style>

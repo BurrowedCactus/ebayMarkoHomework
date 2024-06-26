@@ -7,7 +7,9 @@
     "marko": "^5.33.5"
   },
   "devDependencies": {
-    "@marko/run": "^0.4.3"
+    "@marko/prettier": "^1.0.0",
+    "@marko/run": "^0.4.3",
+    "prettier": "^2.8.8"
   },
   "private": true,
   "scripts": {

@@ -1,0 +1,71 @@
+import { featureData } from './feature.js';
+class {
+  onCreate(input) {
+    this.state = featureData;
+  }
+}
+
+<div.features>
+  <div.heading>
+    <h3.heading-title>${state.title}</h3>
+    <p.heading-subtitle>${state.subtitle}</p>
+  </div>
+  <ul.custom-ul>
+    <for|feature, index| of=state.features>
+      <li.feature-item key=feature.title>
+        <img.icon src=feature.icon alt='marko logo'>
+        <div>
+          <h3.feature-item-title>${feature.title}</h3>
+          <p.feature-item-description>${feature.description}</p>
+        </div>
+      </li>
+    </for>
+  </ul>
+</div>
+
+<style>
+  .features {
+    background-color: #f4f4f4;
+    border-radius: 0.5em;
+    flex-basis: 48%;
+  }
+  .heading {
+    text-align: left;
+    padding-left: 3em;
+    background: royalblue;
+    padding: 2em;
+  }
+  .heading-title {
+    color: skyblue;
+  }
+
+  .heading-subtitle {
+    color: white;
+  }
+  .custom-ul {
+    margin-block-start: 0;
+    padding-inline-start: 0;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 1em;
+    background-color: white;
+    gap: 0.5em;
+  }
+  .feature-item-title {
+    color: #0056b3;
+  }
+  .feature-item-description {
+    color: #666;
+  }
+  .icon {
+    display: inline-block;
+    max-width: 4em;
+  }
+
+  @media (max-width: 50em) {.features {
+      flex-basis: 100%;
+    }}
+</style>

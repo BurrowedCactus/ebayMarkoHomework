@@ -1,0 +1,176 @@
+class {
+  onCreate() {
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+
+      newModel: false,
+      lowMileage: false,
+      notInRestrictiveRegion: false,
+    };
+  }
+  onUpdateField(event) {
+    const { name, value } = event.target;
+    this.state[name] = value;
+    console.log('select-language', this.state);
+  }
+
+  handleSubmit(event) {
+    console.log('this state', this.state);
+    event.preventDefault(); // Prevent the form from submitting traditionally
+    if (this.state.firstName && this.state.lastName && this.state.email) {
+      console.log('Form Data:', this.state);
+      alert(`form submited: ${JSON.stringify(this.state)}`);
+      // You can add an API call here to submit the form data
+    } else {
+      alert('Please fill in all fields.');
+    }
+  }
+}
+
+<div.quote-form>
+  <form.form on-submit('handleSubmit')>
+    <h4.full>Get a Free Quote</h4>
+    <label.half for='firstName'>
+      <span.full>First Name:</span>
+      <input#firstName
+        type='text'
+        name='firstName'
+        value=state.firstName
+        on-input('onUpdateField')
+        required
+      >
+    </label>
+    <label.half for='lastName'>
+      Last Name:
+      <input#lastName
+        type='text'
+        name='lastName'
+        value=state.lastName
+        on-input('onUpdateField')
+        required
+      >
+    </label>
+
+    <label.full for='email'>
+      Email Address:
+      <input#email
+        type='text'
+        name='email'
+        value=state.email
+        on-input('onUpdateField')
+        required
+      >
+    </label>
+    <h4>Please Check All Boxes To Qualify</h4>
+    <label.full.checkbox>
+      <input#newModel
+        type='checkbox'
+        name='newModel'
+        checked=state.newModel
+        on-input('onUpdateField')
+        required
+      >
+       My vehicle's model year is 2017 or newer
+    </label>
+
+    <label.full.checkbox>
+      <input#lowMileage
+        type='checkbox'
+        name='lowMileage'
+        checked=state.lowMileage
+        on-input('onUpdateField')
+        required
+      >
+       My vehicle has less than 80,000 miles
+    </label>
+
+    <label.full.checkbox>
+      <input#notInRestrictiveRegion
+        type='checkbox'
+        name='notInRestrictiveRegion'
+        checked=state.notInRestrictiveRegion
+        on-input('onUpdateField')
+        required
+      >
+       I do not live in either California or Massachusetts
+    </label>
+    <h6.full>
+      By clicking submit, you agree to send your information in SomethingICantRead, subject to their policy.
+    </h6>
+    <button.submit-button type='submit'>Learn More</button>
+
+    <if(state.formSubmitted)>
+      <p>Just to see what you have submitted: ${JSON.stringify(this.state)}</p>
+      <p>Thank you for your submission, ${state.firstName}!</p>
+    </if>
+  </form>
+</div>
+
+<style>
+  .quote-form {
+    flex-basis: 48%;
+  }
+  .form {
+    background-color: grey;
+    padding: 1.25em;
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1em;
+  }
+  .input-group {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    margin-bottom: 1em; /* Spacing between this group and the next input */
+  }
+  .half {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    flex-grow: 1;
+    box-sizing: border-box;
+  }
+  .full {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    flex-basis: 100%; /* Takes up the full width */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  }
+  .checkbox {
+    flex-direction: row;
+    margin-top: 1em;
+    font-size: 0.9em;
+  }
+  input[type='text'],
+  input[type='email'] {
+    width: -webkit-fill-available;
+    flex-grow: 1;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  .submit-button {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5em;
+    border: none;
+    margin-top: 1em;
+    padding: 1em 5em;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 50em) {.quote-form {
+      flex-basis: 100%;
+    }}
+</style>
